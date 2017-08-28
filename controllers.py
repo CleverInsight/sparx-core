@@ -40,7 +40,7 @@ class BaseHandler(tornado.web.RequestHandler):
 # Basic LimusBi server initialization
 class MainHandler(BaseHandler):
 
-
+    @tornado.web.authenticated
     def get(self):
 
         self.render('index.html', handler=self, snippet=self.snippet, result=None)
@@ -84,8 +84,41 @@ class MainHandler(BaseHandler):
         df['OT'] = pd.Series(ot)
 
         self.render('index.html', handler=self, snippet=self.snippet, \
-            result=df[['Dept', 'HC', 'OT']].to_html(classes='table table-bordered'))
+            result=df[['Dept', 'HC', 'OT']].to_html(classes='table table-bordered'), OT=df['OT'].sum(), HC=df['HC'].sum())
 
+class LoginHandler(BaseHandler):
+
+    def check_permission(self, password, username):
+        if username == "bastinrobin" and password == "demo.123":
+            return True
+        return False
+
+    def set_current_user(self, user):
+        if user:
+            self.set_secure_cookie("user", tornado.escape.json_encode(user))
+        else:
+            self.clear_cookie("user")
+
+    def get(self):
+        self.render('login.html')
+
+    def post(self):
+
+        username = self.get_argument('username')
+        password = self.get_argument('password')
+
+        auth = self.check_permission(password, username)
+
+        if auth:
+            self.set_current_user(username)
+            self.redirect('/')
+        else:
+            self.write('You are not allowed to access this page')
+
+class LogoutHandler(BaseHandler):
+    def get(self):
+        self.clear_cookie("user")
+        self.redirect(self.get_argument("next", "/"))
 
 class DocsHandler(BaseHandler):
 

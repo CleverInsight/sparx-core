@@ -22,7 +22,9 @@ class Application(tornado.web.Application):
 
         handlers = [
             (r"/", MainHandler),
-            (r"/docs", DocsHandler)
+            (r"/docs", DocsHandler),
+            (r"/login", LoginHandler),
+            (r"/logout", LogoutHandler)
         ]
         settings = dict(
             cookie_secret="43oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",

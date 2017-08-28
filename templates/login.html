@@ -1,0 +1,7 @@
+<form method="POST" action='/login'>
+    {% raw xsrf_form_html() %}
+    <label>Username</label>
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <button type="submit">Login</button>
+</form>
