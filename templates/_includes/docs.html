@@ -1,0 +1,47 @@
+{% extends '../base.html' %}
+
+{% block content %}
+{% code %}
+import pandas as pd
+
+data = [
+	{'title': 'Button', 'desc': ''},
+	{'title': 'Form', 'desc': ''},
+	{'title': 'Input', 'desc': ''},
+	{'title': 'List', 'desc': ''},
+
+]
+
+{% end %}
+<link rel="stylesheet" type="text/css" href="{{ static_url('css/docs.min.css') }}">
+ <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-12 col-md-9">
+          <p class="float-right d-md-none">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          
+          <div class="row">
+          	{% for row in data %}
+            <div class="col-12 col-lg-12" id="{{ row['title']}}">
+              <h2>{{ row['title'] }}</h2>
+              <div class="bd-example" data-example-id="">
+				{{ snippet('button.html', classes='btn btn-primary') }}
+				</div>
+				<div class="highlight"><pre><code class="language-html" data-lang="html">&#123;&#123; snippet('button.html', classes='btn btn-primary') &#125;&#125;</code></pre></div>
+
+            </div><!--/span-->
+            {% end %}
+          </div><!--/row-->
+        </div><!--/span-->
+
+        <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+          <div class="list-group">
+          	{% for row in data %}
+            <a href="#{{ row['title'] }}" class="list-group-item">{{ row['title'] }}</a>
+            {% end %}
+          </div>
+        </div><!--/span-->
+      </div><!--/row-->
+
+{% end %}

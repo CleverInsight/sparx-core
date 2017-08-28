@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% code %}
+import pandas as pd
+idx = [0, 1, 2, 3, 4]
+d = {'Dept': pd.Series(['Receiving', 'Picking', 'PPicking', 'QC', 'Packing'], index=idx),
+     'Target': pd.Series([61, 94, 32, 63, 116], index=idx),
+     'Hrs/day': pd.Series([7.75, 7.75, 7.75, 7.75, 7.75], index=idx),
+     'Prod': pd.Series([13260, 14237, 2968, 14384, 14524], index=idx)}
+df = pd.DataFrame(d)
+{% end %}
+	<div class="row">
+		<div class="col-md-6">
+		
+			<form action="/" method="POST">
+				<div class="form-group">
+					<label>Receiving</label>
+					<input type="text" name="receiving" value="13260" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Picking</label>
+					<input type="text" name="picking" value="14237" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Piece Picking</label>
+					<input type="text" name="ppicking" value="2968" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>QC</label>
+					<input type="text" name="qc" value="14384" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Packing</label>
+					<input type="text" name="packing" value="14524" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Head Count</label>
+					<input type="number" name="hc" value="99" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Optimize">
+				</div>
+
+			</form>
+		</div>
+		{% if result != None %}
+		<div class="col-md-6">
+			<h3>Presciptive Analytics Report</h3>
+			{{ result }}
+		</div>
+		{% end %}
+	</div>
+{% end %}
+{% block footer %}
+	{% include 'footer.html' %}
+{% end %}
