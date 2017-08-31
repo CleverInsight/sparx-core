@@ -1,18 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% code %}
-import pandas as pd
-idx = [0, 1, 2, 3, 4]
-d = {'Dept': pd.Series(['Receiving', 'Picking', 'PPicking', 'QC', 'Packing'], index=idx),
-     'Target': pd.Series([61, 94, 32, 63, 116], index=idx),
-     'Hrs/day': pd.Series([7.75, 7.75, 7.75, 7.75, 7.75], index=idx),
-     'Prod': pd.Series([13260, 14237, 2968, 14384, 14524], index=idx)}
-df = pd.DataFrame(d)
-{% end %}
+
 	<div class="row">
 		<div class="col-md-6">
-		
+
 			<form action="/" method="POST">
 				<div class="form-group">
 					<label>Receiving</label>

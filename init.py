@@ -11,7 +11,7 @@ from tornado.options import define, options
 from controllers import *
 
 
-define("port", default=5000, help="run on the given port", type=int)
+define("port", default=8000, help="run on the given port", type=int)
 define('nobrowser', default=True, help='Do not start webbrowser', type=bool)
 SOURCE = os.path.dirname(os.path.abspath(__file__))
 
@@ -46,14 +46,14 @@ def start_app():
     tornado.options.parse_command_line()
     app = Application()
     app.listen(options.port)
-    # if not options.nobrowser:
-    #     try:
-    #         import webbrowser
-    #         webbrowser.open('http://127.0.0.1:%d' % options.port)
-    #     except ImportError:
-    #         pass
-    # logging.info('*** Sparx-lite - version '+ str(version) +'. started at:\
-    #  http://localhost:%d/' % (options.port))
+    if not options.nobrowser:
+        try:
+            import webbrowser
+            webbrowser.open('http://127.0.0.1:%d' % options.port)
+        except ImportError:
+            pass
+    logging.info('*** Sparx-lite - version '+ str(version) +'. started at:\
+     http://localhost:%d/' % (options.port))
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":

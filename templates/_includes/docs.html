@@ -2,34 +2,45 @@
 
 {% block content %}
 {% code %}
-import pandas as pd
-
 data = [
-	{'title': 'Button', 'desc': ''},
-	{'title': 'Form', 'desc': ''},
-	{'title': 'Input', 'desc': ''},
-	{'title': 'List', 'desc': ''},
-
+	{'title': 'button', 'desc': '', ' attr: {} },
+	{'title': 'form', 'desc': '', ' attr: {} },
+	{'title': 'input', 'desc': '', ' attr: {} },
+	{'title': 'select', 'desc': '', ' attr: {} },
+	{'title': 'checkbox', 'desc': '', ' attr: {} },
+	{'title': 'dropdown', 'desc': '', ' attr: {} },
+	{'title': 'textbox', 'desc': '', ' attr: {} },
+	{'title': 'card', 'desc': '', ' attr: {} },
+	{'title': 'alert', 'desc': '', ' attr: {} },
+	{'title': 'list', 'desc': '', ' attr: {} },
 ]
 
 {% end %}
 <link rel="stylesheet" type="text/css" href="{{ static_url('css/docs.min.css') }}">
+<style>
+.highlight { background: #000; }
+.highlight pre code { color: #fff }
+.btn-clipboard { background: #2196F3; color: #fff }
+</style>
  <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-12 col-md-9">
           <p class="float-right d-md-none">
             <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
           </p>
-          
+
           <div class="row">
           	{% for row in data %}
             <div class="col-12 col-lg-12" id="{{ row['title']}}">
-              <h2>{{ row['title'] }}</h2>
+              <h2>{{ row['title'].title() }}</h2>
               <div class="bd-example" data-example-id="">
-				{{ snippet('button.html', classes='btn btn-primary') }}
-				</div>
-				<div class="highlight"><pre><code class="language-html" data-lang="html">&#123;&#123; snippet('button.html', classes='btn btn-primary') &#125;&#125;</code></pre></div>
+				{{ snippet(row['title'] ) }}
+				{{ snippet('form', action='/thanks', method='POST') }}
 
+				<hr>
+				{{ snippet(row['title']+'-doc') }}
+			  </div>
+				<div class="highlight"><pre><code class="language-html" data-lang="html">&#123;&#123; snippet('{{ row['title'] }}', classes='btn btn-primary') &#125;&#125;</code></pre></div>
             </div><!--/span-->
             {% end %}
           </div><!--/row-->
@@ -37,8 +48,9 @@ data = [
 
         <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
+			<a href="#" class="list-group-item active">Snippets</a>
           	{% for row in data %}
-            <a href="#{{ row['title'] }}" class="list-group-item">{{ row['title'] }}</a>
+            <a href="#{{ row['title'] }}" class="list-group-item">{{ row['title'].title() }}</a>
             {% end %}
           </div>
         </div><!--/span-->

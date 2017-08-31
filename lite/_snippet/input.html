@@ -1,0 +1,14 @@
+{% code %}
+    G = globals()
+    _ = globals().get
+    _class = _('classes', None)
+    _id = _('id', None)
+    _type = _('type', None)
+    _value = _('value', None)
+    _label = _('label', None)
+    _placeholder = _('placeholder', None)
+{% end %}
+<div class="form-group">
+    <label for="{{ _id }}-label">{{ _label }}</label>
+    <input type="{{ _type }}" class="form-control {{ _class }}" id="{{ _id }}" placeholder="{{ _placeholder }}">
+</div>

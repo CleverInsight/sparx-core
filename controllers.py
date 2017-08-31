@@ -40,51 +40,10 @@ class BaseHandler(tornado.web.RequestHandler):
 # Basic LimusBi server initialization
 class MainHandler(BaseHandler):
 
-    @tornado.web.authenticated
     def get(self):
 
         self.render('index.html', handler=self, snippet=self.snippet, result=None)
 
-
-    def post(self):
-
-        # Problem data
-        idx = [0, 1, 2, 3, 4]
-        d = {'Dept': pd.Series(['Receiving', 'Picking', 'PPicking', 'QC', 'Packing'], index=idx),
-             'Target': pd.Series([61, 94, 32, 63, 116], index=idx),
-             'Hrs/day': pd.Series([7.75, 7.75, 7.75, 7.75, 7.75], index=idx),
-             'Prod': pd.Series([int(self.get_argument('receiving')), int(self.get_argument('picking')), int(self.get_argument('ppicking')), int(self.get_argument('qc')), int(self.get_argument('packing'))], index=idx)}
-        df = pd.DataFrame(d)
-
-        # Create variables and model                                                                                                 
-        HC = pulp.LpVariable.dicts("HC", df.index, lowBound=0)
-        OT = pulp.LpVariable.dicts("OT", df.index, lowBound=0)
-        mod = pulp.LpProblem("OTReduction", pulp.LpMinimize)
-
-        # # # Objective function                                                                                                         
-        mod += sum([OT[idx] for idx in df.index])
-
-        # # Lower and upper bounds:                                                                                                    
-        for idx in df.index:
-            mod += df['Target'][idx] * df['Hrs/day'][idx] * HC[idx] + df['Target'][idx] * OT[idx] >= df['Prod'][idx]
-
-        # Total HC value should be less than or equal to 92                                                                          
-        mod += sum([HC[idx] for idx in df.index]) <= int(self.get_argument('hc'))
-
-
-        # Solve model                                                                                                                
-        mod.solve()
-
-        # Output solution   
-        hc, ot = [], []                                                                                                    
-        for idx in df.index:
-            hc.append(int(HC[idx].value()))
-            ot.append(OT[idx].value())
-        df['HC'] = pd.Series(hc)
-        df['OT'] = pd.Series(ot)
-
-        self.render('index.html', handler=self, snippet=self.snippet, \
-            result=df[['Dept', 'HC', 'OT']].to_html(classes='table table-bordered'), OT=df['OT'].sum(), HC=df['HC'].sum())
 
 class LoginHandler(BaseHandler):
 
