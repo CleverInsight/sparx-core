@@ -11,7 +11,7 @@ from tornado.options import define, options
 from controllers import *
 
 
-define("port", default=8000, help="run on the given port", type=int)
+define("port", default=5000, help="run on the given port", type=int)
 define('nobrowser', default=True, help='Do not start webbrowser', type=bool)
 SOURCE = os.path.dirname(os.path.abspath(__file__))
 

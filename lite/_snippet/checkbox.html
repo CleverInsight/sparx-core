@@ -1,0 +1,19 @@
+{% code %}
+    G = globals()
+    _ = globals().get
+    _class = _('classes', None)
+    _id = _('id', None)
+    _values = _('values', [])
+    _label = _('label', None)
+    _name = _('name', None)
+{% end %}
+<div class="form-group">
+<label>{{ _label }}</label>
+ {% for val in _values %}
+  <label class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input {{ _class }}" id="{{ _id }}" name="{{ _name }}" value="{{ val }}">
+    <span class="custom-control-indicator"></span>
+    <span class="custom-control-description">{{ val }}</span>
+  </label>
+  {% end %}
+</div>

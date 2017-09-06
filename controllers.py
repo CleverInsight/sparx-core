@@ -35,15 +35,12 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_current_email(self):
         return self.get_secure_cookie("email")
 
-
-
 # Basic LimusBi server initialization
 class MainHandler(BaseHandler):
 
     def get(self):
 
         self.render('index.html', handler=self, snippet=self.snippet, result=None)
-
 
 class LoginHandler(BaseHandler):
 
