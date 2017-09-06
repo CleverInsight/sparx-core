@@ -5,7 +5,6 @@ import sys
 import pandas as pd
 from lite import T
 
-
 class BaseHandler(tornado.web.RequestHandler):
 
     def __init__(self,application, request,**kwargs):
@@ -34,7 +33,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def get_current_email(self):
         return self.get_secure_cookie("email")
-
 # Basic LimusBi server initialization
 class MainHandler(BaseHandler):
 
@@ -80,3 +78,4 @@ class DocsHandler(BaseHandler):
 
     def get(self):
         self.render('_includes/docs.html', snippet=self.snippet)
+
