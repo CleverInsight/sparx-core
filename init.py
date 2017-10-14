@@ -8,8 +8,8 @@ from version import version
 import tornado.ioloop
 import tornado.web
 from tornado.options import options
-from config import *
-from controllers import *
+from config import SETTINGS
+from controllers import MainHandler, DocsHandler, LoginHandler, LogoutHandler
 
 
 
@@ -25,7 +25,6 @@ class Application(tornado.web.Application):
             (r"/logout", LogoutHandler)
         ]
 
-
         tornado.web.Application.__init__(self, handlers, **SETTINGS)
 
 
@@ -38,6 +37,7 @@ def start_app():
     logging.info('*** Sparx-lite - version '+ str(version) +'. started at:\
      http://localhost:%d/' % (options.port))
     tornado.ioloop.IOLoop.instance().start()
+
 
 if __name__ == "__main__":
     start_app()

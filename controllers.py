@@ -37,7 +37,6 @@ class BaseHandler(tornado.web.RequestHandler):
 class MainHandler(BaseHandler):
 
     def get(self):
-
         self.render('index.html', handler=self, snippet=self.snippet, result=None)
 
 class LoginHandler(BaseHandler):
@@ -79,3 +78,12 @@ class DocsHandler(BaseHandler):
     def get(self):
         self.render('_includes/docs.html', snippet=self.snippet)
 
+
+
+__all__ = [
+    MainHandler,
+    LoginHandler,
+    LogoutHandler,
+    DocsHandler,
+    BaseHandler
+]
