@@ -1,5 +1,5 @@
 """
-Sparx Lite Server
+`Sparx Lite Server`
 Author: @bastinrobin
 """
 import os
@@ -9,7 +9,8 @@ import tornado.ioloop
 import tornado.web
 from tornado.options import options
 from config import SETTINGS
-from controllers import MainHandler, DocsHandler, LoginHandler, LogoutHandler
+from controllers import MainHandler, DocsHandler, \
+LoginHandler, LogoutHandler, TemplateHandler
 
 
 
@@ -22,7 +23,8 @@ class Application(tornado.web.Application):
             (r"/", MainHandler),
             (r"/docs", DocsHandler),
             (r"/login", LoginHandler),
-            (r"/logout", LogoutHandler)
+            (r"/logout", LogoutHandler),
+            (r"/(.*)", TemplateHandler)
         ]
 
         tornado.web.Application.__init__(self, handlers, **SETTINGS)
