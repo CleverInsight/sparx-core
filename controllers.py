@@ -1,13 +1,11 @@
-"""
+'''
 `Sparx Lite Server`
 @module: Handlers
-"""
+'''
 import os
 import sys
-import pulp
 import tornado
 import tornado.web
-import pandas as pd
 from lite import T
 from version import version
 
@@ -16,9 +14,9 @@ __TEMPLATES__ = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templa
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    """
+    '''
     @brief BaseHandler with all Mixin Configuration
-    """
+    '''
     def __init__(self, application, request, **kwargs):
         super(BaseHandler, self).__init__(application, request)
         self.snippet = T
@@ -57,9 +55,9 @@ class BaseHandler(tornado.web.RequestHandler):
 
 # Basic LimusBi server initialization
 class MainHandler(BaseHandler):
-    """
+    '''
     First inherited handler to load home template
-    """
+    '''
     def get(self):
         self.render('index.html', handler=self, snippet=self.snippet, result=None)
 
@@ -94,38 +92,30 @@ class LoginHandler(BaseHandler):
             self.write('You are not allowed to access this page')
 
 class LogoutHandler(BaseHandler):
-    """
+    '''
         `LogoutHandler` For the complete application
-    """
+    '''
     def get(self):
         self.clear_cookie("user")
         self.redirect(self.get_argument("next", "/"))
 
 
 class DocsHandler(BaseHandler):
-    """
+    '''
         `DocsHandler` complete documentation rendering class
-    """
+    '''
     def get(self):
         self.render('_includes/docs.html', snippet=self.snippet)
 
 
 class TemplateHandler(BaseHandler):
-    """
+    '''
         Global .html file handler
-    """
+    '''
     def get(self, filename):
-
         raise tornado.web.HTTPError(status_code=404, log_message="template is not found")
 
-        # if '.html' in filename:
-        #     if (os.path.exists(__TEMPLATES__ + filename)): 
-        #         raise tornado.web.HTTPError(status_code=400, log_message=custom_msg)
-
-        #     # self.render(filename, T=T)
-        # else:
-        #     self.render(filename +'.html', T=T)
-
+    
 __all__ = [
     MainHandler,
     LoginHandler,
