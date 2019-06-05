@@ -1,5 +1,5 @@
 # ⚡️Sparx-Core
-Sparx Core is the new API server code which has been build for faster microservices on top of python tornado asych. 
+Sparx Core is the new python API server core which has been build for faster microservices on top of python tornado asych. 
 
 ## Features
 - Non-Blocking network I/O
