@@ -8,7 +8,7 @@ class IndexController(base_handler):
 
     def get(self):
         ''' start the basic API seletion '''
-        self.write('Welcome to IndexController');
+        self.render('welcome.html')
 
     
     def post(self):
