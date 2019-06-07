@@ -107,6 +107,8 @@ def remove_service(controller_name):
     # Remove declaration of import from __init__.py
     remove_declaration(controller_name)
 
+    print "Removed {}".format(controller_name)
+
 
 if __name__ == "__main__":
 

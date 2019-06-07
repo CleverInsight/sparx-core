@@ -1,4 +1,2 @@
-controllers:
-- api_handler
-urls:
-- /
+controllers: []
+urls: []

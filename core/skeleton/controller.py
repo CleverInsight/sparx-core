@@ -8,7 +8,7 @@ class controller_name(base_handler):
 
     def get(self):
         ''' start the basic API seletion '''
-        self.write();
+        self.write('Welcome to controller_name');
 
     
     def post(self):
