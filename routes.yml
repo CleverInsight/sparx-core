@@ -1,2 +1,4 @@
-controllers: []
-urls: []
+controllers:
+- IndexController
+urls:
+- /
