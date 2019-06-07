@@ -29,8 +29,7 @@ def read_yaml(filename):
 def make_route_tuple(data):
     response = []
 
-    for v in zip(data['url'], data['controllers']):
-        url, controller = v
+    for url, controller in zip(data['urls'], data['controllers']):
         response.append((url, str_to_class(controller)))
     return response
 

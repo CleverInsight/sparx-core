@@ -62,13 +62,17 @@ def clone_script(origin_script, controller_name):
 
 
 def remove_declaration(controller_name):
-    ''' 
-       `TODO`
-        Scan and remove the controller declaration 
-        and save the file
-    '''
+    ''' `TODO` Scan and remove the controller declaration and save the file '''
+
     main_location = 'controllers/__init__.py'
 
+    declaration = 'from ' + controller_name + ' import *'
+    with open(main_location, "r") as f:
+        lines = f.readlines()
+    with open(main_location, "w") as f:
+        for line in lines:
+            if line.strip("\n") != declaration:
+                f.write(line)
 
 
 
@@ -81,17 +85,24 @@ def add_service(url, controller_name):
     print "new service generated ..."
 
 
+def remove_service_files(controller_name):
+    ''' Remove controller.py and .py* files '''
+
+    if os.path.exists('controllers/' + controller_name + '.py'):
+        os.remove('controllers/'+ controller_name + '.py')
+    
+    if os.path.exists('controllers/' + controller_name + '.pyc'):
+        os.remove('controllers/'+ controller_name + '.pyc')
+
 
 def remove_service(controller_name):
     ''' Remove the service added to the application '''
 
     # Modify yaml
     remove_from_yaml('routes.yml', controller_name)
-    
-    # Remove file from controllers
-    os.remove('controllers/'+ controller_name + '.py')
-    os.remove('controllers/'+ controller_name + '.pyc')
 
+    # Remove controller files
+    remove_service_files(controller_name)
 
     # Remove declaration of import from __init__.py
     remove_declaration(controller_name)
@@ -99,6 +110,11 @@ def remove_service(controller_name):
 
 if __name__ == "__main__":
 
-    # add_service(sys.argv[1], sys.argv[2])
-    remove_service(sys.argv[1])
+    if sys.argv[1] == 'add':
+        add_service(sys.argv[2], sys.argv[3])
+    
+    elif sys.argv[1] == 'rm':
+        remove_service(sys.argv[2])
 
+    else:
+        print "Invalid commands"
