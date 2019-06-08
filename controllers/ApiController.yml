@@ -1,0 +1,18 @@
+get:
+  args: 100
+  response: {
+    response: 100
+  }
+
+post:
+  args:
+  response:
+
+put:
+  args:
+  response:
+
+
+delete:
+  args:
+  response:

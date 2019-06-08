@@ -1,4 +1,6 @@
 controllers:
 - IndexController
+- ApiController
 urls:
 - /
+- /api

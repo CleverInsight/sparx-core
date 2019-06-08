@@ -37,6 +37,5 @@ Or maybe through using sparx you have an idea of your own or are looking for som
 Feel free to ask questions on the mailing list or on Gitter.
 
 ## Development Lead
-
-* `Bastin Robins ` - <robin@cleverinsight.co>
-* `Dr.Vandana ` - <vandana.bhagat@cleverinsight.co>
+- **Bastin Robins** - <robin@cleverinsight.co>
+- **Dr.Vandana** - <vandana.bhagat@cleverinsight.co>

@@ -1,8 +1,15 @@
 import os
 import sys
 import yaml
+import argparse
+import tornado
+import logging
 import fileinput
 from shutil import copyfile
+from prettytable import PrettyTable
+from base import Application
+from tornado.options import options
+from version import version
 
 
 def line_prepender(filename, line):
@@ -75,9 +82,6 @@ def remove_declaration(controller_name):
                 f.write(line)
 
 
-
-
-
 def add_service(url, controller_name):
     add_to_yaml('routes.yml', url, controller_name)
     clone_script('core/skeleton/controller.py', controller_name)
@@ -110,13 +114,45 @@ def remove_service(controller_name):
     print "Removed {}".format(controller_name)
 
 
-if __name__ == "__main__":
+def list_all_routes():
+    '''
+    List all apps created inside give directory
+    '''
 
+    apps = read_yaml('routes.yml')
+
+    table = PrettyTable(['Routes', 'Controllers'])
+    for url, controller in zip(apps['urls'], apps['controllers']):
+        table.add_row([url, controller])
+    table.align = 'l'
+    print table
+
+    
+def start_app():
+    ''' Sparx server instantiation'''
+
+    tornado.options.parse_command_line()
+    app = Application()
+    app.listen(options.port)
+    logging.info('*** Sparx-core - version '+ str(version) +'. started at:\
+     http://localhost:%d/' % (options.port))
+    tornado.ioloop.IOLoop.instance().start()
+
+
+
+if __name__ == "__main__":
+    
     if sys.argv[1] == 'add':
         add_service(sys.argv[2], sys.argv[3])
     
     elif sys.argv[1] == 'rm':
         remove_service(sys.argv[2])
+
+    elif sys.argv[1] == 'list':
+        list_all_routes()
+    
+    elif sys.argv[1] == 'start':
+        start_app()
 
     else:
         print "Invalid commands"
