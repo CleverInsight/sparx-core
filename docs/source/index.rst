@@ -6,6 +6,9 @@
 Sparx Core Documentation
 ======================================
 
+⚡️Sparx Core is the new API server code which has been build for faster microservices. We at CleverInsight Lab took the initiative to build a better automated api pipeline library and here it is.
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
