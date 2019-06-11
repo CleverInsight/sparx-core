@@ -2,7 +2,7 @@
 History
 =======
 
-0.0.1 (pre-release on 22 July 2017)
+0.0.1 (pre-release on 10 June 2019)
 ------------------------------------
 
 * sparx
