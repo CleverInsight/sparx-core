@@ -2,3 +2,5 @@ tornado==3.1.1
 pandas==0.19.2
 singledispatch 
 backports_abc
+
+# If ML skeleton install pandas, numpy, scipy, sklearn ..etc

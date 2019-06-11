@@ -12,6 +12,22 @@ from tornado.options import options
 from version import version
 
 
+__UPLOADS__  = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources/')
+__MODELS__  = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources/models/')
+# __STORAGE__ = 
+
+
+# Argument parser
+parser = argparse.ArgumentParser(description="Sparx Application Command Line")
+parser.add_argument('service', help="Type of service command")
+parser.add_argument('-t', '--type', type=str, metavar='', help='Type of command add or rm')
+parser.add_argument('-u', '--url', type=str, metavar='', help='API endpoints url')
+parser.add_argument('-c', '--controller', type=str, metavar='', help='Endpoint controller')
+parser.add_argument('-m', '--model', type=str, metavar='', help='Pickled predictive model `*.pkl` ')
+args = parser.parse_args()
+
+
+
 def line_prepender(filename, line):
     ''' Add new line to give file first line '''
     with open(filename, 'r+') as f:
@@ -68,6 +84,15 @@ def clone_script(origin_script, controller_name):
         f.write(new_content)
 
 
+
+def clone_model(src, controller_name, destination="resources/models"):
+    ''' Copy trained model from local to model repository '''
+    destination = os.path.join(destination, controller_name + '.pkl')
+    copyfile(src, destination)
+    print "Model imported successfully..."
+
+
+
 def remove_declaration(controller_name):
     ''' `TODO` Scan and remove the controller declaration and save the file '''
 
@@ -89,6 +114,17 @@ def add_service(url, controller_name):
     print "new service generated ..."
 
 
+def add_ml_service(url, controller_name, model_file):
+    ''' Add ML/DL pickled model service '''
+    add_to_yaml('routes.yml', url, controller_name)
+    clone_script('core/skeleton/model_controller.py', controller_name)
+    clone_model(model_file, controller_name)
+    line_prepender('controllers/__init__.py', 'from ' + str(controller_name) + ' import *')
+    print "new machine learning service generated ..."
+
+
+
+
 def remove_service_files(controller_name):
     ''' Remove controller.py and .py* files '''
 
@@ -98,9 +134,15 @@ def remove_service_files(controller_name):
     if os.path.exists('controllers/' + controller_name + '.pyc'):
         os.remove('controllers/'+ controller_name + '.pyc')
 
+    if os.path.exists('resources/models/' + controller_name + '.pkl'):
+        os.remove('resources/models/' + controller_name + '.pkl')
+
 
 def remove_service(controller_name):
     ''' Remove the service added to the application '''
+
+    if controller_name == 'IndexController':
+        sys.exit('Error: IndexController cannot be removed!')
 
     # Modify yaml
     remove_from_yaml('routes.yml', controller_name)
@@ -114,7 +156,8 @@ def remove_service(controller_name):
     print "Removed {}".format(controller_name)
 
 
-def list_all_routes():
+
+def list_all_endpoints():
     '''
     List all apps created inside give directory
     '''
@@ -142,16 +185,47 @@ def start_app():
 
 if __name__ == "__main__":
     
-    if sys.argv[1] == 'add':
-        add_service(sys.argv[2], sys.argv[3])
-    
-    elif sys.argv[1] == 'rm':
-        remove_service(sys.argv[2])
+    # Check if `add` service command
+    if args.service == 'add':
+        if args.url != None and args.controller != None:
 
-    elif sys.argv[1] == 'list':
-        list_all_routes()
+            # check if model flag is defined
+            if args.model == None:
+
+                # create a normal service if model is `None`
+                add_service(args.url, args.controller)
+
+            else:
+                # check if give model file exists
+                if os.path.exists(args.model):
+
+                    # Add ml service if model is defined
+                    add_ml_service(args.url, args.controller, args.model)
+                
+                else:
+                    # throw exception
+                    print 'Model path not defined'
+
+        else:
+
+            # Throw -u and -c required exception
+            print "`-u` URL required"
+            print "`-c` Controller required"
+
+
+    # Check if `rm` (remove) command
+    elif args.service == 'rm':
+        if args.controller != None:
+            remove_service(args.controller)
+        else:
+            print "controller name is required `-c`"
+
+    # List all service from routes.yml
+    elif args.service == 'endpoints':
+        list_all_endpoints()
     
-    elif sys.argv[1] == 'start':
+    # Start the sparx-core server
+    elif args.service == 'start':
         start_app()
 
     else:

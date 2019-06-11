@@ -108,4 +108,4 @@ venv.bak/
 resources/models/
 resources/temp/
 controllers/*
-!controllers/IndexController
+!controllers/IndexController.py
