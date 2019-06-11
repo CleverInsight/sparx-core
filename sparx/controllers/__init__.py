@@ -1,5 +1,5 @@
-from iris_controller import *
-from ApiController import *
+from PredictController import *
+from IndexController import *
 from os.path import dirname, basename, isfile, join
 import glob
 

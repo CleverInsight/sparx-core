@@ -65,9 +65,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
-docs/_build/
-
 # PyBuilder
 target/
 
@@ -105,7 +102,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-resources/models/
-resources/temp/
-controllers/*
-!controllers/IndexController.py
+sparx/resources/models/*
+sparx/resources/temp/*
+sparx/controllers/*
+!sparx/controllers/IndexController.py

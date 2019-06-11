@@ -1,6 +1,0 @@
-controllers:
-- ApiController
-- iris_controller
-urls:
-- /api
-- /api/predict/iris
