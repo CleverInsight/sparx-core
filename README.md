@@ -1,6 +1,9 @@
 # ⚡️Sparx-Core
 Sparx Core is the new python API server core which has been build for faster microservices on top of python tornado asych. 
 
+[![Documentation Status](https://readthedocs.org/projects/sparx-core/badge/?version=latest)](https://sparx-core.readthedocs.io/en/latest/?badge=latest)
+
+
 ## Features
 - Non-Blocking network I/O
 - Faster service creation
