@@ -106,3 +106,4 @@ sparx/resources/models/*
 sparx/resources/temp/*
 sparx/controllers/*
 !sparx/controllers/IndexController.py
+!sparx/controllers/DocController.py
