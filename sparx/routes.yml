@@ -1,6 +1,4 @@
 controllers:
 - IndexController
-- PredictController
 urls:
 - /
-- /api/v1/predict
