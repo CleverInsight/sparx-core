@@ -1,4 +1,3 @@
-from IrisController import *
 from IndexController import *
 from DocController import *
 from os.path import dirname, basename, isfile, join
