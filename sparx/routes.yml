@@ -1,4 +1,6 @@
 controllers:
 - IndexController
+- IrisController
 urls:
 - /
+- /api/v1/predict/iris

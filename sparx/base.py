@@ -14,3 +14,9 @@ class Application(tornado.web.Application):
         handlers = routes()
         handlers.append((r'/docs', DocController))
         tornado.web.Application.__init__(self, handlers, **SETTINGS)
+
+
+
+__all__ = [
+    'Application'
+]
