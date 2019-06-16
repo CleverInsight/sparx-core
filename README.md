@@ -3,6 +3,7 @@ Sparx Core is the new python API server core which has been build for faster mic
 
 [![Documentation Status](https://readthedocs.org/projects/sparx-core/badge/?version=latest)](https://sparx-core.readthedocs.io/en/latest/?badge=latest)
 
+[![asciicast](https://asciinema.org/a/251436.png)](https://asciinema.org/a/251436)
 
 ## Features
 - Non-Blocking network I/O
