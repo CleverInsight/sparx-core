@@ -1,7 +1,7 @@
 tornado==3.1.1
 pandas==0.19.2
 scipy==0.18.1
-numpy==1.13.1
+numpy==1.22.0
 python-dateutil==2.6.0
 scikit-learn==0.18.1
 # singledispatch 
